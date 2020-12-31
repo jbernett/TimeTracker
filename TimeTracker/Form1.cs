@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimeTracker
 {
     public partial class Form1 : Form
     {
+        public List<Story> stories = new List<Story>();
+        Story currentStory = new Story();
+        string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string folderName = "TimeLogging";
+        string fileName = "timeLogger.txt";
+        bool isStopped = true;
+
         public Form1()
         {
             InitializeComponent();
             CheckAndCreateLoggingDirectoryAndFile();
             GetStoryTimeList();
+            IsGoDisplayUpdate(false);
         }
 
         private void GetStoryTimeList()
@@ -33,13 +36,7 @@ namespace TimeTracker
                 stories.Add(story);
             }
         }
-        List<Story> stories = new List<Story>();
-        Story currentStory = new Story();
-        string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string folderName = "TimeLogging";
-        string fileName = "timeLogger.txt";
-        bool isStopped = true;
-
+              
         private void btnGo_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtStroyNumber.Text, out int storyNumber))
@@ -62,19 +59,39 @@ namespace TimeTracker
             {
                 currentStory.StoryNumber = storyNumber;
             }
-            isStopped = false;
+            IsGoDisplayUpdate(true);
             var thread = new Thread(timer);
             thread.IsBackground = true;
             thread.Start();
-            btnGo.Enabled = false;
+           
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            isStopped = true;
-            btnGo.Enabled = true;
+            IsGoDisplayUpdate(false);
             SaveTime();
         }
+
+        private void IsGoDisplayUpdate(bool isGo)
+        {
+            isStopped = !isGo;
+            btnGo.Enabled = !isGo;
+            btnStop.Enabled = isGo;            
+            btnGo.BackColor = isGo ? Color.DarkGray : Color.Green;
+            btnStop.BackColor = !isGo ? Color.DarkGray : Color.Red;
+            if (currentStory.StoryNumber > 0 && isGo)
+            {
+                txtStroyNumber.Enabled = false;
+                btnMinus.Show();
+                btnAddTime.Show();
+            }
+            else
+            {
+                txtStroyNumber.Enabled = true;
+                btnAddTime.Hide();
+                btnMinus.Hide();
+            }      
+        }        
 
         private void timer()
         {
@@ -100,7 +117,6 @@ namespace TimeTracker
         private void CheckAndCreateLoggingDirectoryAndFile()
         {
             var fullPath = $"{systemPath}\\{folderName}\\{fileName}";
-
 
             if (!Directory.Exists($"{systemPath}\\{folderName}"))
             {
@@ -199,6 +215,12 @@ namespace TimeTracker
                     MessageBox.Show("I have no idea how you got here, this shouldn't happen");
                     break;
             }
+        }
+
+        private void btnOpenForm_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2(stories);
+            form2.Show();
         }
     }
 }

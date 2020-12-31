@@ -29,10 +29,8 @@ namespace TimeTracker
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnGo = new System.Windows.Forms.Button();
             this.lblhours = new System.Windows.Forms.Label();
             this.txtStroyNumber = new System.Windows.Forms.TextBox();
-            this.btnStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,85 +39,60 @@ namespace TimeTracker
             this.lblSeconds = new System.Windows.Forms.Label();
             this.btnAddTime = new System.Windows.Forms.Button();
             this.btnMinus = new System.Windows.Forms.Button();
+            this.btnOpenForm = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnGo = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnGo
-            // 
-            this.btnGo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnGo.BackgroundImage = global::TimeTracker.Properties.Resources.go;
-            this.btnGo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnGo.Location = new System.Drawing.Point(163, 157);
-            this.btnGo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(104, 90);
-            this.btnGo.TabIndex = 0;
-            this.btnGo.TabStop = false;
-            this.btnGo.UseVisualStyleBackColor = false;
-            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
             // lblhours
             // 
             this.lblhours.BackColor = System.Drawing.SystemColors.ControlLight;
             this.lblhours.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblhours.Location = new System.Drawing.Point(22, 329);
-            this.lblhours.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblhours.Font = new System.Drawing.Font("Poor Richard", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblhours.Location = new System.Drawing.Point(17, 187);
             this.lblhours.Name = "lblhours";
-            this.lblhours.Size = new System.Drawing.Size(175, 112);
+            this.lblhours.Size = new System.Drawing.Size(76, 63);
             this.lblhours.TabIndex = 1;
             this.lblhours.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtStroyNumber
             // 
-            this.txtStroyNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStroyNumber.Location = new System.Drawing.Point(208, 86);
-            this.txtStroyNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtStroyNumber.Font = new System.Drawing.Font("Poor Richard", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStroyNumber.Location = new System.Drawing.Point(101, 49);
             this.txtStroyNumber.Name = "txtStroyNumber";
-            this.txtStroyNumber.Size = new System.Drawing.Size(166, 56);
+            this.txtStroyNumber.Size = new System.Drawing.Size(105, 28);
             this.txtStroyNumber.TabIndex = 2;
-            // 
-            // btnStop
-            // 
-            this.btnStop.BackColor = System.Drawing.Color.Red;
-            this.btnStop.BackgroundImage = global::TimeTracker.Properties.Resources.stop;
-            this.btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnStop.Location = new System.Drawing.Point(324, 157);
-            this.btnStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(104, 90);
-            this.btnStop.TabIndex = 3;
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label1.Location = new System.Drawing.Point(161, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(86, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(268, 36);
+            this.label1.Size = new System.Drawing.Size(145, 19);
             this.label1.TabIndex = 4;
             this.label1.Text = "Stroy/Bug Number";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(50, 271);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(25, 153);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 36);
+            this.label2.Size = new System.Drawing.Size(50, 19);
             this.label2.TabIndex = 5;
             this.label2.Text = "Hours";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(230, 271);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(120, 153);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 36);
+            this.label3.Size = new System.Drawing.Size(65, 19);
             this.label3.TabIndex = 7;
             this.label3.Text = "Minutes";
             // 
@@ -127,21 +100,21 @@ namespace TimeTracker
             // 
             this.lblMintutes.BackColor = System.Drawing.SystemColors.ControlLight;
             this.lblMintutes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblMintutes.Location = new System.Drawing.Point(218, 329);
-            this.lblMintutes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMintutes.Font = new System.Drawing.Font("Poor Richard", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMintutes.Location = new System.Drawing.Point(113, 187);
             this.lblMintutes.Name = "lblMintutes";
-            this.lblMintutes.Size = new System.Drawing.Size(175, 112);
+            this.lblMintutes.Size = new System.Drawing.Size(79, 63);
             this.lblMintutes.TabIndex = 6;
             this.lblMintutes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(420, 271);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(220, 153);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(119, 36);
+            this.label5.Size = new System.Drawing.Size(64, 19);
             this.label5.TabIndex = 9;
             this.label5.Text = "Seconds";
             // 
@@ -149,19 +122,19 @@ namespace TimeTracker
             // 
             this.lblSeconds.BackColor = System.Drawing.SystemColors.ControlLight;
             this.lblSeconds.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSeconds.Location = new System.Drawing.Point(410, 329);
-            this.lblSeconds.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSeconds.Font = new System.Drawing.Font("Poor Richard", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeconds.Location = new System.Drawing.Point(217, 187);
             this.lblSeconds.Name = "lblSeconds";
-            this.lblSeconds.Size = new System.Drawing.Size(175, 112);
+            this.lblSeconds.Size = new System.Drawing.Size(76, 63);
             this.lblSeconds.TabIndex = 8;
             this.lblSeconds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAddTime
             // 
-            this.btnAddTime.Location = new System.Drawing.Point(198, 469);
-            this.btnAddTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddTime.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddTime.Location = new System.Drawing.Point(82, 278);
             this.btnAddTime.Name = "btnAddTime";
-            this.btnAddTime.Size = new System.Drawing.Size(104, 59);
+            this.btnAddTime.Size = new System.Drawing.Size(69, 39);
             this.btnAddTime.TabIndex = 10;
             this.btnAddTime.Text = "+30";
             this.btnAddTime.UseVisualStyleBackColor = true;
@@ -169,21 +142,59 @@ namespace TimeTracker
             // 
             // btnMinus
             // 
-            this.btnMinus.Location = new System.Drawing.Point(310, 469);
-            this.btnMinus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMinus.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinus.Location = new System.Drawing.Point(157, 278);
             this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(104, 59);
+            this.btnMinus.Size = new System.Drawing.Size(69, 39);
             this.btnMinus.TabIndex = 11;
             this.btnMinus.Text = "-30";
             this.btnMinus.UseVisualStyleBackColor = true;
             this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
             // 
+            // btnOpenForm
+            // 
+            this.btnOpenForm.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenForm.Location = new System.Drawing.Point(117, 331);
+            this.btnOpenForm.Name = "btnOpenForm";
+            this.btnOpenForm.Size = new System.Drawing.Size(75, 32);
+            this.btnOpenForm.TabIndex = 12;
+            this.btnOpenForm.Text = "See All";
+            this.btnOpenForm.UseVisualStyleBackColor = true;
+            this.btnOpenForm.Click += new System.EventHandler(this.btnOpenForm_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.BackColor = System.Drawing.Color.DimGray;
+            this.btnStop.BackgroundImage = global::TimeTracker.Properties.Resources.stop;
+            this.btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnStop.Location = new System.Drawing.Point(171, 83);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(69, 60);
+            this.btnStop.TabIndex = 3;
+            this.btnStop.UseVisualStyleBackColor = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnGo
+            // 
+            this.btnGo.BackColor = System.Drawing.Color.Green;
+            this.btnGo.BackgroundImage = global::TimeTracker.Properties.Resources.go;
+            this.btnGo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnGo.ForeColor = System.Drawing.Color.ForestGreen;
+            this.btnGo.Location = new System.Drawing.Point(63, 83);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.Size = new System.Drawing.Size(69, 60);
+            this.btnGo.TabIndex = 0;
+            this.btnGo.TabStop = false;
+            this.btnGo.UseVisualStyleBackColor = false;
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(18F, 36F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(605, 595);
+            this.ClientSize = new System.Drawing.Size(319, 375);
+            this.Controls.Add(this.btnOpenForm);
             this.Controls.Add(this.btnMinus);
             this.Controls.Add(this.btnAddTime);
             this.Controls.Add(this.label5);
@@ -196,10 +207,13 @@ namespace TimeTracker
             this.Controls.Add(this.txtStroyNumber);
             this.Controls.Add(this.lblhours);
             this.Controls.Add(this.btnGo);
-            this.Font = new System.Drawing.Font("Poor Richard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Font = new System.Drawing.Font("Poor Richard", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Story Tracker";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,6 +233,7 @@ namespace TimeTracker
         private System.Windows.Forms.Label lblSeconds;
         private System.Windows.Forms.Button btnAddTime;
         private System.Windows.Forms.Button btnMinus;
+        private System.Windows.Forms.Button btnOpenForm;
     }
 }
 
