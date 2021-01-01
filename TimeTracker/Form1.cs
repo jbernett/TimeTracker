@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -9,11 +10,13 @@ namespace TimeTracker
 {
     public partial class Form1 : Form
     {
-        public List<Story> stories = new List<Story>();
-        Story currentStory = new Story();
-        string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string folderName = "TimeLogging";
-        string fileName = "timeLogger.txt";
+        public static List<Story> stories = new List<Story>();
+        public static Story currentStory = new Story();
+        public static string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        public static string folderName = "TimeLogging";
+        public static string fileName = "timeLogger.txt";
+        TimeSpan takeABreak = new TimeSpan(0, 0, 1);
+        TimeSpan currentWork; 
         bool isStopped = true;
 
         public Form1()
@@ -60,6 +63,7 @@ namespace TimeTracker
                 currentStory.StoryNumber = storyNumber;
             }
             IsGoDisplayUpdate(true);
+            currentWork = currentStory.TimeSpent;
             var thread = new Thread(timer);
             thread.IsBackground = true;
             thread.Start();
@@ -77,8 +81,8 @@ namespace TimeTracker
             isStopped = !isGo;
             btnGo.Enabled = !isGo;
             btnStop.Enabled = isGo;            
-            btnGo.BackColor = isGo ? Color.DarkGray : Color.Green;
-            btnStop.BackColor = !isGo ? Color.DarkGray : Color.Red;
+            btnGo.BackColor = isGo ? Color.Black : Color.Green;
+            btnStop.BackColor = !isGo ? Color.Black : Color.Red;
             if (currentStory.StoryNumber > 0 && isGo)
             {
                 txtStroyNumber.Enabled = false;
@@ -87,6 +91,7 @@ namespace TimeTracker
             }
             else
             {
+                takeABreak = new TimeSpan(0, 0, 1);
                 txtStroyNumber.Enabled = true;
                 btnAddTime.Hide();
                 btnMinus.Hide();
@@ -96,12 +101,26 @@ namespace TimeTracker
         private void timer()
         {
             while (!isStopped)
-            {
+            {                 
                 currentStory.TimeSpent += new TimeSpan(0, 0, 1);
-                lblhours.Invoke(new DisplayTimeDelegate(DisplayTime), currentStory.TimeSpent);
+                btnGo.Invoke(new DisplayTimeDelegate(DisplayTime), currentStory.TimeSpent);
                 Thread.Sleep(1000);
+                if (takeABreak + currentWork < currentStory.TimeSpent)
+                {
+                    var result = MessageBox.Show(new Form() { TopMost = true }, "Are you still there? If yes I will ask again in 30 mins", "Pause Story", MessageBoxButtons.YesNo);
+                    if (DialogResult.No == result)
+                    {
+                        btnGo.Invoke(new IsGoDisplayUpdateDelegate(IsGoDisplayUpdate), false);
+                        return;
+                    }
+
+                    currentWork = currentStory.TimeSpent;
+                    takeABreak = new TimeSpan(0, 30, 0);
+                }
             }
         }
+       
+        private delegate void IsGoDisplayUpdateDelegate(bool isGo);
 
         private delegate void DisplayTimeDelegate(TimeSpan timeSpan);
 
@@ -129,7 +148,7 @@ namespace TimeTracker
             }
         }
 
-        private void SaveTime()
+        public static void SaveTime()
         {
             var found = false;
             var lines = new List<string>();
@@ -216,11 +235,18 @@ namespace TimeTracker
                     break;
             }
         }
+        
 
         private void btnOpenForm_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(stories);
+            Form2 form2 = new Form2();
+            form2.FormClosed += new FormClosedEventHandler(form2_FormClosed);
             form2.Show();
+            Hide();
+        }
+        private void form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Show();
         }
     }
 }

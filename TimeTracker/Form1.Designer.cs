@@ -164,7 +164,7 @@ namespace TimeTracker
             // 
             // btnStop
             // 
-            this.btnStop.BackColor = System.Drawing.Color.DimGray;
+            this.btnStop.BackColor = System.Drawing.Color.Black;
             this.btnStop.BackgroundImage = global::TimeTracker.Properties.Resources.stop;
             this.btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnStop.Location = new System.Drawing.Point(171, 83);
@@ -192,7 +192,7 @@ namespace TimeTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(319, 375);
             this.Controls.Add(this.btnOpenForm);
             this.Controls.Add(this.btnMinus);
