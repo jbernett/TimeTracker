@@ -15,9 +15,10 @@ namespace TimeTracker
         public static string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         public static string folderName = "TimeLogging";
         public static string fileName = "timeLogger.txt";
-        TimeSpan takeABreak = new TimeSpan(0, 0, 1);
+        TimeSpan takeABreak = new TimeSpan(4, 0, 0);
         TimeSpan currentWork; 
         bool isStopped = true;
+        int autoSave = 0;
 
         public Form1()
         {
@@ -29,6 +30,7 @@ namespace TimeTracker
 
         private void GetStoryTimeList()
         {
+            stories = new List<Story>();
             string[] lines = File.ReadAllLines($"{systemPath}\\{folderName}\\{fileName}");
             foreach (string line in lines)
             {
@@ -42,9 +44,36 @@ namespace TimeTracker
               
         private void btnGo_Click(object sender, EventArgs e)
         {
+            SetCurrentStory();
+            IsGoDisplayUpdate(true);
+            var thread = new Thread(timer);
+            thread.IsBackground = true;
+            thread.Start();
+           
+        }
+        private void txtStroyNumber_TextChanged(object sender, EventArgs e)
+        {
+            currentStory = new Story();
+            if(txtStroyNumber.Text == "")
+            {
+                return;
+            }
+            SetCurrentStory();
+            DisplayTime(currentStory.TimeSpent);
+            txtStroyNumber.Focus();
+        }
+
+        private void SetCurrentStory()
+        {
             if (!int.TryParse(txtStroyNumber.Text, out int storyNumber))
             {
                 MessageBox.Show("This needs to be a whole number");
+                return;
+            }
+
+            if (storyNumber == 0)
+            {
+                MessageBox.Show("Number can't be 0");
                 return;
             }
 
@@ -62,12 +91,7 @@ namespace TimeTracker
             {
                 currentStory.StoryNumber = storyNumber;
             }
-            IsGoDisplayUpdate(true);
             currentWork = currentStory.TimeSpent;
-            var thread = new Thread(timer);
-            thread.IsBackground = true;
-            thread.Start();
-           
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -91,7 +115,7 @@ namespace TimeTracker
             }
             else
             {
-                takeABreak = new TimeSpan(0, 0, 1);
+                takeABreak = new TimeSpan(4, 0, 0);
                 txtStroyNumber.Enabled = true;
                 btnAddTime.Hide();
                 btnMinus.Hide();
@@ -103,10 +127,12 @@ namespace TimeTracker
             while (!isStopped)
             {                 
                 currentStory.TimeSpent += new TimeSpan(0, 0, 1);
-                btnGo.Invoke(new DisplayTimeDelegate(DisplayTime), currentStory.TimeSpent);
+                autoSave++;
+                btnGo.Invoke(new DisplayTimeDelegate(DisplayTime), currentStory.TimeSpent);               
                 Thread.Sleep(1000);
+                
                 if (takeABreak + currentWork < currentStory.TimeSpent)
-                {
+                {                    
                     var result = MessageBox.Show(new Form() { TopMost = true }, "Are you still there? If yes I will ask again in 30 mins", "Pause Story", MessageBoxButtons.YesNo);
                     if (DialogResult.No == result)
                     {
@@ -119,6 +145,8 @@ namespace TimeTracker
                 }
             }
         }
+
+        private delegate void SaveTimeDelegate();
        
         private delegate void IsGoDisplayUpdateDelegate(bool isGo);
 
@@ -131,6 +159,16 @@ namespace TimeTracker
             lblhours.Text = hours.ToString();
             lblMintutes.Text = timeSpan.ToString("%m");
             lblSeconds.Text = timeSpan.ToString("%s");
+            if (autoSave == 60)
+            {
+                autoSave = 0;
+                btnGo.Invoke(new SaveTimeDelegate(SaveTime));
+                BackColor = Color.DimGray;
+            }
+            else
+            {
+                BackColor = Color.DarkGray;
+            }
         }
 
         private void CheckAndCreateLoggingDirectoryAndFile()
@@ -160,7 +198,7 @@ namespace TimeTracker
                     found = true;
                 }                
             }
-            if (!found)
+            if (!found && currentStory.StoryNumber != 0)
             {
                 stories.Add(currentStory);
             }
@@ -173,13 +211,13 @@ namespace TimeTracker
             {
                 File.WriteAllLines($"{systemPath}\\{folderName}\\{fileName}", lines);
             }
-            currentStory = new Story();
         }
 
         int addCounter = 0;
         private void btnAddTime_Click(object sender, EventArgs e)
         {
             currentStory.TimeSpent += new TimeSpan(0, 30, 0);
+            takeABreak += new TimeSpan(0, 30, 0);
             DisplayTime(currentStory.TimeSpent);
             addCounter++;
             if(addCounter > 50)
@@ -194,6 +232,7 @@ namespace TimeTracker
             if(currentStory.TimeSpent > new TimeSpan())
             {
                 currentStory.TimeSpent += new TimeSpan(0, -30, 0);
+                takeABreak += new TimeSpan(0, -30, 0);
                 DisplayTime(currentStory.TimeSpent);
             }
             else
@@ -240,13 +279,26 @@ namespace TimeTracker
         private void btnOpenForm_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
-            form2.FormClosed += new FormClosedEventHandler(form2_FormClosed);
+            form2.FormClosed += new FormClosedEventHandler(other_FormClosed);
             form2.Show();
             Hide();
         }
-        private void form2_FormClosed(object sender, FormClosedEventArgs e)
+        private void other_FormClosed(object sender, FormClosedEventArgs e)
         {
             Show();
+        }
+
+        private void btnAddStory_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.FormClosed += new FormClosedEventHandler(other_FormClosed);
+            form3.Show();
+            Hide();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveTime();
         }
     }
 }

@@ -91,9 +91,5 @@ namespace TimeTracker
             Close();
         }
 
-        private void btnAddStory_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
